@@ -1,5 +1,9 @@
 # syntax=docker/dockerfile:latest
-FROM ghcr.io/nanake/fedora:rawhide AS base
+FROM fedora:rawhide AS base
+
+RUN <<EOF
+    dnf install dnf5 dnf5-plugins --assumeyes
+EOF
 
 RUN <<EOF
     dnf5 config-manager setopt assumeyes=True install_weak_deps=False max_parallel_downloads=20
@@ -31,7 +35,16 @@ RUN <<EOF
         wget2-wget \
         which \
         xxd \
-        yasm
+        clang-tools-extra \
+        llvm \
+        lld \
+        rustup \
+        yasm \
+        zlib-devel \
+        openssl-devel \
+        zlib-ng-devel \
+        rust 
+
     dnf5 clean all
     git config --system user.email "builder@localhost"
     git config --system user.name "Builder"
@@ -54,7 +67,7 @@ RUN <<EOF
 EOF
 
 ENV FFBUILD_TOOLCHAIN=x86_64-w64-mingw32ucrt
-ENV FFBUILD_TARGET_FLAGS="--pkg-config=pkg-config --cross-prefix=${FFBUILD_TOOLCHAIN}- --arch=x86_64 --target-os=mingw32" \
+ENV FFBUILD_TARGET_FLAGS="--pkg-config=pkg-config --cross-prefix=${FFBUILD_TOOLCHAIN}- --arch=amd64 --target-os=mingw32" \
     FFBUILD_CROSS_PREFIX=${FFBUILD_TOOLCHAIN}- \
     FFBUILD_PREFIX=/opt/ffbuild \
     FFBUILD_CMAKE_TOOLCHAIN=/toolchain.cmake \
@@ -69,4 +82,6 @@ ENV FFBUILD_TARGET_FLAGS="--pkg-config=pkg-config --cross-prefix=${FFBUILD_TOOLC
     DLLTOOL="${FFBUILD_TOOLCHAIN}-dlltool" \
     CFLAGS="-static-libgcc -static-libstdc++ -I/opt/ffbuild/include -O3 -pipe -D_FORTIFY_SOURCE=3 -fstack-protector-strong -fno-semantic-interposition" \
     CXXFLAGS="-static-libgcc -static-libstdc++ -I/opt/ffbuild/include -O3 -pipe -D_FORTIFY_SOURCE=3 -fstack-protector-strong -fno-semantic-interposition" \
-    LDFLAGS="-static-libgcc -static-libstdc++ -L/opt/ffbuild/lib -O3 -pipe -fstack-protector-strong"
+    LDFLAGS="-static-libgcc -static-libstdc++ -L/opt/ffbuild/lib -O3 -pipe -fstack-protector-strong" \
+    STAGE_CFLAGS="-fno-semantic-interposition" \
+    STAGE_CXXFLAGS="-fno-semantic-interposition"

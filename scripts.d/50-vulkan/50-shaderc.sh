@@ -1,7 +1,7 @@
 #!/bin/bash
 
 SHADERC_REPO="https://github.com/google/shaderc.git"
-SHADERC_COMMIT="d875f303474e0051b286a11dd772817ab190e02e"
+SHADERC_COMMIT="main"
 
 ffbuild_enabled() {
     return 0
