@@ -1,7 +1,8 @@
 #!/bin/bash
 
-MINGW_REPO="https://github.com/mingw-w64/mingw-w64.git"
-MINGW_COMMIT="e38459032ffd1832c466f183f1f533a747a15600"
+MINGW_REPO="https://git.code.sf.net/p/mingw-w64/mingw-w64.git"
+#MINGW_REPO="https://github.com/mingw-w64/mingw-w64.git"
+MINGW_COMMIT="master"
 
 ffbuild_enabled() {
     [[ $TARGET == win* ]] || return -1
@@ -34,7 +35,7 @@ ffbuild_dockerbuild() {
     ./configure "${myconf[@]}"
     make -j"$(nproc)"
     make install DESTDIR="/opt/mingw"
-
+    
     cd ../mingw-w64-libraries/winpthreads
 
     local myconf=(
