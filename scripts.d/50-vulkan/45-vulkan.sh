@@ -1,7 +1,7 @@
 #!/bin/bash
 
 VULKAN_REPO="https://github.com/BtbN/Vulkan-Shim-Loader.git"
-VULKAN_COMMIT="9657ca8e395ef16c79b57c8bd3f4c1aebb319137"
+VULKAN_COMMIT="master"
 
 ffbuild_enabled() {
     return 0

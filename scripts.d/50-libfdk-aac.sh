@@ -1,7 +1,7 @@
 #!/bin/bash
 
 LIBFDK_AAC_REPO="https://github.com/mstorsjo/fdk-aac.git"
-LIBFDK_AAC_COMMIT="d8e6b1a3aa606c450241632b64b703f21ea31ce3"
+LIBFDK_AAC_COMMIT="master"
 
 ffbuild_enabled() {
     [[ $VARIANT == *nonfree* ]] || return -1
