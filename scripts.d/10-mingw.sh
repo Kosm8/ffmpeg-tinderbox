@@ -2,7 +2,7 @@
 
 MINGW_REPO="https://git.code.sf.net/p/mingw-w64/mingw-w64.git"
 #MINGW_REPO="https://github.com/mingw-w64/mingw-w64.git"
-MINGW_COMMIT="master"
+MINGW_COMMIT="c1a7f831b064e625adc51e483f00a289eeeaac6d"
 
 ffbuild_enabled() {
     [[ $TARGET == win* ]] || return -1
