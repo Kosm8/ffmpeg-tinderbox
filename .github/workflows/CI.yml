@@ -1,10 +1,6 @@
 name: Windows Cross Compiled
 
 on:
-  push:
-    branches-ignore:
-      - 'dependabot/**'
-
   workflow_dispatch:
 
 jobs:
@@ -41,7 +37,7 @@ jobs:
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
-          password: ${{ secrets.dodosolsollalasol }}
+          password: ${{ github.token }}
 
       - name: Generate Dockerfile
         run: ./generate.sh ${{ matrix.target }} ${{ matrix.variant }}
@@ -99,7 +95,7 @@ jobs:
       fail-fast: false
       matrix:
         target: [win64]
-        variant: [nonfree, nonfree-shared]
+        variant: [nonfree]
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -120,5 +116,4 @@ jobs:
         with:
           name: ffmpeg-${{ steps.artifact.outputs.name }}
           path: artifacts/
-          retention-days: 1
           archive: false
