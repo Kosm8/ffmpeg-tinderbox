@@ -1,6 +1,6 @@
 #!/bin/bash
 
-MINGW_REPO="https://github.com/mingw-w64/mingw-w64.git"
+MINGW_REPO="https://git.code.sf.net/p/mingw-w64/mingw-w64.git"
 MINGW_COMMIT="94a83f88e98f2a51003fd3c478de655408daf34d"
 
 ffbuild_enabled() {
