@@ -1,5 +1,5 @@
 #!/bin/bash
-
+#MINGW_REPO="https://git.code.sf.net/p/mingw-w64/mingw-w64.git"
 MINGW_REPO="https://github.com/mingw-w64/mingw-w64.git"
 MINGW_COMMIT="8d02d610f707b5f6af74653c6ebb0cdfa4df9212"
 
