@@ -2,8 +2,6 @@ name: Nightly Build
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '0 21 * * *' # Runs at 06:00 Tokyo time every day 🕕
 
 jobs:
   decision_task:
@@ -37,7 +35,7 @@ jobs:
       fail-fast: false
       matrix:
         target: [win64]
-        variant: [nonfree, nonfree-shared]
+        variant: [nonfree]
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -47,7 +45,7 @@ jobs:
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
-          password: ${{ secrets.dodosolsollalasol }}
+          password: ${{ github.token }}
 
       - name: Build ffmpeg
         run: ./build.sh ${{ matrix.target }} ${{ matrix.variant }}
