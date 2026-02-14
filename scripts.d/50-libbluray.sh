@@ -19,8 +19,8 @@ ffbuild_dockerbuild() {
         --prefix="$FFBUILD_PREFIX"
         --buildtype=release
         -Ddefault_library=static
+        -Denable_tools=false
         -D{bdj_jar,fontconfig,freetype,libxml2}"=disabled"
-        -D{enable_tools,java9}"=false"
     )
 
     if [[ $TARGET == win* ]]; then
