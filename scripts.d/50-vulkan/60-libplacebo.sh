@@ -22,9 +22,9 @@ ffbuild_dockerbuild() {
         --prefix="$FFBUILD_PREFIX"
         --buildtype=release
         -Ddefault_library=static
-        -D{d3d11,vulkan,shaderc}"=enabled"
+        -D{d3d11,vk-proc-addr,vulkan,shaderc}"=enabled"
         -D{bench,demos,fuzz,tests}"=false"
-        -D{glslang,vk-proc-addr}"=disabled"
+        -Dglslang=disabled
         -Dvulkan-registry="$FFBUILD_PREFIX"/share/vulkan/registry/vk.xml
     )
 
