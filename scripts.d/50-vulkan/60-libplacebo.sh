@@ -12,10 +12,6 @@ ffbuild_dockerbuild() {
     cd placebo
     git submodule update --init --recursive --depth 1
 
-    # Don't define PL_EXPORT for static build
-    # https://code.videolan.org/videolan/libplacebo/-/merge_requests/682
-    sed -i "/c_args:/s/'-DPL_EXPORT'/'-DPL_STATIC'/" src/meson.build
-
     mkdir build && cd build
 
     local myconf=(
