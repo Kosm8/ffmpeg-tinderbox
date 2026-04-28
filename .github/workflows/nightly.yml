@@ -94,6 +94,14 @@ jobs:
           REV=$(echo "$STUB" | cut -d'-' -f5)
           NTAG=$(echo "$STUB" | cut -d'-' -f3)
 
+          for f in artifacts/ffmpeg-N-*-win64-nonfree.tar.zst; do
+            [[ "$f" == *"-shared"* ]] && continue
+            mv "$f" artifacts/ffmpeg-win64-nonfree.tar.zst
+          done
+          for f in artifacts/ffmpeg-N-*-win64-nonfree-shared.tar.zst; do
+            mv "$f" artifacts/ffmpeg-win64-nonfree-shared.tar.zst
+          done
+
           TITLE="Build $BUILDID"
           RELNOTE="Built from FFmpeg/FFmpeg@$REV"
           TAGNAME="build-$BUILDID-n$NTAG"
