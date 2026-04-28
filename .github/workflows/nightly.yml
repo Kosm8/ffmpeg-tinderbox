@@ -90,7 +90,7 @@ jobs:
           set -xe
 
           BUILDID=$(date +'%Y-%m-%d-%H-%M')
-          STUB=$(find artifacts -iname '*.zst' | head -1 | xargs -I{} basename {})
+          STUB=$(basename artifacts/*.zst | head -n1)
           REV=$(echo "$STUB" | cut -d'-' -f5)
           NTAG=$(echo "$STUB" | cut -d'-' -f3)
 
