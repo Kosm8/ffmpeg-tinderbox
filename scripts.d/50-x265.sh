@@ -1,6 +1,6 @@
 #!/bin/bash
 
-X265_REPO="https://bitbucket.org/multicoreware/x265_git.git"
+X265_REPO="https://github.com/Multicorewareinc/x265.git"
 X265_COMMIT="e444744c03978c1fb4e037168967020cf2648427"
 
 ffbuild_enabled() {
