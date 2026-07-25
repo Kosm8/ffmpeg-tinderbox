@@ -27,7 +27,7 @@ ffbuild_dockerbuild() {
 
     {
         echo "Libs.private: -liphlpapi"
-        echo "Requires.private: libssl libcrypto zlib"
+        echo "Requires.private: libcrypto zlib"
         echo "Cflags.private: -DLIBSSH_STATIC"
     } >> "$FFBUILD_PREFIX"/lib/pkgconfig/libssh.pc
 }
