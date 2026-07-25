@@ -13,11 +13,17 @@ ffbuild_dockerbuild() {
     cd openssl
 
     local myconf=(
-        no-{apps,deprecated,docs,engine,legacy,makedepend,module,shared,tests}
-        no-{quic,ssl3-method}
-        no-{dh,dsa,ec2m,idea,md2,md4,mdc2,rc2,rc4,rc5,seed,sm2,sm3,sm4}
+        no-{apps,deprecated,docs,legacy,makedepend,module,shared,tests}
+        # Legacy cipher/digest implementations not required by either consumer.
+        no-{bf,blake2,camellia,cast,dh,dsa,ec2m,idea,md2,md4,mdc2,rc2,rc4,rc5,rmd160,seed,sm2,sm3,sm4,whirlpool}
+        # Unnecessary async/misc runtime features.
+        no-{async,autoload-config,ui-console,multiblock,ssl-trace}
+        # Unused libcrypto modules.
+        no-{comp,ct,ocsp,cms,ts,srp,nextprotoneg,psk,srtp}
+        # FFmpeg uses schannel for TLS on this target, while libssh and libsrt only use libcrypto (EVP/cipher primitives), thus completely eliminating the need for libssl and TLS/DTLS dependencies.
+        no-{tls,dtls,dgram,quic}
+        no-{tls1,tls1_1,tls1_2,dtls1,dtls1_2}-method
         threads
-        zlib
         --prefix="$FFBUILD_PREFIX"
     )
 
