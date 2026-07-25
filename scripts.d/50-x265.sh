@@ -32,14 +32,13 @@ ffbuild_dockerbuild() {
     HALF=$(( $(nproc) / 2 ))
     HALF=$(( HALF < 1 ? 1 : HALF ))
 
-    if [[ $TARGET != *32 ]]; then
-        mkdir 8bit 10bit 12bit
-        cmake "${common_config[@]}" -DHIGH_BIT_DEPTH=ON -DEXPORT_C_API=OFF -DENABLE_HDR10_PLUS=ON -DMAIN12=ON -S source -B 12bit &
-        cmake "${common_config[@]}" -DHIGH_BIT_DEPTH=ON -DEXPORT_C_API=OFF -DENABLE_HDR10_PLUS=ON -S source -B 10bit &
-        cmake "${common_config[@]}" -DEXTRA_LIB="x265_main10.a;x265_main12.a" -DEXTRA_LINK_FLAGS=-L. -DLINKED_{10,12}BIT=ON -S source -B 8bit &
-        wait
+    mkdir 8bit 10bit 12bit
+    cmake "${common_config[@]}" -DHIGH_BIT_DEPTH=ON -DEXPORT_C_API=OFF -DENABLE_HDR10_PLUS=ON -DMAIN12=ON -S source -B 12bit &
+    cmake "${common_config[@]}" -DHIGH_BIT_DEPTH=ON -DEXPORT_C_API=OFF -DENABLE_HDR10_PLUS=ON -S source -B 10bit &
+    cmake "${common_config[@]}" -DEXTRA_LIB="x265_main10.a;x265_main12.a" -DEXTRA_LINK_FLAGS=-L. -DLINKED_{10,12}BIT=ON -S source -B 8bit &
+    wait
 
-        cat >build.ninja <<EOF
+    cat >build.ninja <<EOF
 rule build_lib
   command = ninja -C \$in -j${HALF}
 
@@ -51,14 +50,14 @@ build all: phony 8bit/libx265.a
 default all
 EOF
 
-        ninja -j"$(nproc)"
+    ninja -j"$(nproc)"
 
-        cd 8bit
-        mv ../12bit/libx265.a ../8bit/libx265_main12.a
-        mv ../10bit/libx265.a ../8bit/libx265_main10.a
-        mv libx265.a libx265_main.a
+    cd 8bit
+    mv ../12bit/libx265.a ../8bit/libx265_main12.a
+    mv ../10bit/libx265.a ../8bit/libx265_main10.a
+    mv libx265.a libx265_main.a
 
-        ${AR} -M <<EOF
+    ${AR} -M <<EOF
 CREATE libx265.a
 ADDLIB libx265_main.a
 ADDLIB libx265_main10.a
@@ -66,12 +65,6 @@ ADDLIB libx265_main12.a
 SAVE
 END
 EOF
-    else
-        mkdir 8bit
-        cd 8bit
-        cmake "${common_config[@]}" ../source
-        ninja -j"$(nproc)"
-    fi
 
     ninja install
 }
