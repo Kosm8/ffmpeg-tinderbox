@@ -21,9 +21,9 @@ Ensure you have the following tools installed on your system:
 
 #### Variants:
 
-- `gpl`: Builds all libraries from `scripts.d` folder *except* `libfdk-aac` and `decklink`
+- `gpl`: Builds all libraries from `scripts.d` folder *except* nonfree libraries
 - `lgpl`: Excludes additional libraries (`avisynth`, `davs2`, `vidstab`, `x264`, `x265` and `xavs2`)
-- `nonfree`: Includes both non-free libraries (`LCEVCdec`, `libfdk-aac` and `decklink`) and all libraries of the gpl variant
+- `nonfree`: Includes both non-free libraries (`LCEVCdec`, `libfdk-aac`, `libmpeghdec` and `decklink`) and all libraries of the gpl variant
 
 #### Addins:
 
@@ -99,6 +99,7 @@ Upon successful build completion, the build artifacts will be available in the `
 - liblc3
 - liblcevc-dec
 - libmp3lame
+- libmpeghdec
 - libmysofa
 - liboapv
 - libopencore-amrnb
