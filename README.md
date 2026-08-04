@@ -88,6 +88,7 @@ Upon successful build completion, the build artifacts will be available in the `
 - libaribcaption
 - libass
 - libbluray
+- libcurl
 - libdav1d
 - libdavs2
 - libdvdnav
