@@ -1,7 +1,7 @@
 #!/bin/bash
 
 DVDNAV_REPO="https://github.com/nanake/libdvdnav.git"
-DVDNAV_COMMIT="e0c02b973c62081ee8dc109726e511e94c10f70e"
+DVDNAV_COMMIT="2ffc50b5c37a6ddc086829203fc44e95588198dd"
 
 ffbuild_enabled() {
     return 0

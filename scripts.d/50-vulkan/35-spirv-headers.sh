@@ -1,7 +1,7 @@
 #!/bin/bash
 
 SPIRVHEADERS_REPO="https://github.com/KhronosGroup/SPIRV-Headers.git"
-SPIRVHEADERS_COMMIT="29981f65241605e08b0ede4cfeb999fe3b723c6a"
+SPIRVHEADERS_COMMIT="f0bf307f7c49d26484db596185cece53c37701fc"
 
 ffbuild_enabled() {
     return 0
