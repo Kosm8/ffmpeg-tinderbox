@@ -12,7 +12,7 @@ ffbuild_dockerbuild() {
     git-mini-clone "$LAME_REPO" "$LAME_COMMIT" lame
     cd lame
 
-    autoreconf -fvi -I /usr/share/gettext/m4
+    autoreconf -fvi
 
     local myconf=(
         --prefix="$FFBUILD_PREFIX"
