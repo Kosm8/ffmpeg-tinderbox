@@ -16,8 +16,8 @@ ffbuild_dockerbuild() {
 
     local myconf=(
         --prefix="$FFBUILD_PREFIX"
-        --disable-{shared,cpml,decoder,dependency-tracking,frontend,gtktest}
-        --enable-{static,nasm}
+        --disable-{shared,cpml,decoder,dependency-tracking,frontend}
+        --enable-static
     )
 
     if [[ $TARGET == win* ]]; then
