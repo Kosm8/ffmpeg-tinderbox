@@ -28,8 +28,7 @@ ffbuild_dockerbuild() {
     ninja -j"$(nproc)"
     ninja install
 
-    mv "$FFBUILD_PREFIX"/lib{/oapv/liboapv.a,}
-    rm -rf "$FFBUILD_PREFIX"/{lib/oapv,include/oapv/oapv_exports.h}
+    rm -rf "$FFBUILD_PREFIX"/include/oapv/oapv_exports.h
 }
 
 ffbuild_configure() {
