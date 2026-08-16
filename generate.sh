@@ -50,16 +50,23 @@ for ID in $(ls -1d scripts.d/??-* | sed -s 's|^.*/\(..\).*|\1|' | sort -u); do
     for STAGE in scripts.d/$ID-*; do
         if [[ -f "$STAGE" ]]; then
             SCRIPT="$STAGE"
+            DIR_ENABLED=1
+            ( source "$SCRIPT"; ffbuild_enabled ) && DIR_ENABLED=0
         else
             SCRIPTS=( "$STAGE"/??-* )
             SCRIPT="${SCRIPTS[-1]}"
+            DIR_ENABLED=1
+            for S in "${SCRIPTS[@]}"; do
+                ( source "$S"; ffbuild_enabled ) && DIR_ENABLED=0 && break
+            done
         fi
+
+        [[ $DIR_ENABLED -eq 0 ]] || continue
 
         (
             SELF="$SCRIPT"
             SELFLAYER="$(layername "$STAGE")"
             source "$SCRIPT"
-            ffbuild_enabled || exit 0
             ffbuild_dockerlayer || exit $?
             TODF="Dockerfile.final" PREVLAYER="__PREVLAYER__" \
                 ffbuild_dockerfinal || exit $?
