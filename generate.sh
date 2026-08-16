@@ -35,16 +35,17 @@ for ID in $(ls -1d scripts.d/??-* | sed -s 's|^.*/\(..\).*|\1|' | sort -u); do
     LAYER="layer-$ID"
 
     for STAGE in scripts.d/$ID-*; do
+    if [[ -f "$STAGE" ]]; then
+        ( source "$STAGE"; ffbuild_enabled ) || continue
         to_df "FROM $PREVLAYER AS $(layername "$STAGE")"
-
-        if [[ -f "$STAGE" ]]; then
+        exec_dockerstage "$STAGE"
+    else
+        to_df "FROM $PREVLAYER AS $(layername "$STAGE")"
+        for STAGE in "${STAGE}"/??-*; do
             exec_dockerstage "$STAGE"
-        else
-            for STAGE in "${STAGE}"/??-*; do
-                exec_dockerstage "$STAGE"
-            done
-        fi
-    done
+        done
+    fi
+done
 
     to_df "FROM $PREVLAYER AS $LAYER"
     for STAGE in scripts.d/$ID-*; do
